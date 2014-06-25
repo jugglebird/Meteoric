@@ -1,0 +1,64 @@
+<head>
+  <title>METEORIC</title>
+  <script type="text/javascript" src="//use.typekit.net/tcb6geg.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+
+<body>
+  {{> page}}
+</body>
+
+<template name="page">
+  <div class="layout loading">
+    {{> statusbar }}
+    {{> heroes }}
+    {{> graph}}
+  </div>
+  {{> selector }}
+</template>
+
+<template name="statusbar">
+  <div id="statusbar" class="statusbar element">
+    <div id="hero-load-status" class="hero-load-status">
+      {{ count }} heroes in the system.
+      <input type="button" id="loadHeroes" value="Load">
+    </div>
+
+    <div id="status" class="status">{{ status.status }}</div>
+  </div>
+</template>
+
+<template name="heroes">
+  <div id="heroes" class="heroes element">
+    {{#each heroes}}
+      <div id="hero_{{ _id }}" class="hero">
+        {{ name }}
+        <span class="comic-count">[{{ comicCount }}]</span>
+      </div>
+    {{/each}}
+  </div>
+</template>
+
+<template name="heroAutocomplete">
+  <span class="label">{{ name }}</span>
+</template>
+
+<template name="graph">
+  <div id="graph" class="graph element">
+    <p id="graph-selected" class="graph-selected">{{ selectedHero }} ({{ timestamp }})</p>
+    {{#constant}}
+      <svg>
+      </svg>
+    {{/constant}}
+  </div>
+</template>
+
+<template name="selector">
+  <div id="selector" class="dialog selector {{ selected }}">
+    <div class="photo" style="background-image: url({{ thumbnail }})"></div>
+    <div id="current" class="current">{{ currentHero }}</div>
+    <div id="hero-input" class="hero-input">
+      {{inputAutocomplete settings id="hero-input" class="input-xlarge" placeholder="Choose a hero..."}}
+    </div>
+  </div>
+</template>
